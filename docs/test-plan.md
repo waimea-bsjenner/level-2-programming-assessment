@@ -10,9 +10,9 @@ Terminology:
 
 ---
 
-## Example Test Name
+## chooseRace function
 
-Example test description. Example test description. Example test description. Example test description. Example test description. Example test description.
+I have made a function to get the player to choose a race for their character. 
 
 ### Test Data To Use
 

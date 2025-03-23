@@ -24,9 +24,9 @@ Statement detailing what should happen. Statement detailing what should happen. 
 
 ---
 
-## Example Test Name
+## getChar function
 
-Example test description. Example test description. Example test description. Example test description. Example test description. Example test description.
+It should get a character from the user.
 
 ### Test Data To Use
 

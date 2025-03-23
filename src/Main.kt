@@ -20,26 +20,51 @@
  * =====================================================================
  */
 const val DIVIDER = "---------------------------------------------------------------------------------------------"
+const val RULES = "BOOBS is a turn based 1v1 battle simulator, in which you and a friend pick a race, class, weapon, and duke it out.\nRaces include: the fast Elf, the sturdy Dwarf, and the average Human.\nClasses include: melee - close range high dps, ranger - long range mid dps, mage - has something for every situation.\nWeapons include: longsword, rapier, shortbow, longbow, spellbook, magic staff\nYou can spend your turn trying to attack the opponent, use an item, or move further away or closer to you opponent."
+const val ERROR = "Please choose a valid option."
 
 fun main() {
     println(DIVIDER)
     println("BRILLIANT OMEGA OUTSTANDING BATTLE SIMULATOR")
-    val sayRules = getChar("Welcome to the Brilliant Omega Outstanding Battle Simulator, or BOOBS for short. Would you like to know the rules? (y/n)")
-    sayRules.uppercase()
+    println(DIVIDER)
+    var sayRules = getChar("Welcome to the Brilliant Omega Outstanding Battle Simulator, or BOOBS for short. Would you like to know the rules? (y/n) ").uppercase()
+
+    val player1 = getString("What is the name of Player 1? ")
+    val player2 = getString("What is the name of Player 2? ")
     val p1Race = chooseRace("Player 1, choose a race of character")
-    println(p1Race)
+    println("$player1 has picked $p1Race")
+    val p2Race = chooseRace("Player 2, choose a race of character")
+    println("$player2 has picked $p2Race")
+    val p1Class = chooseClass("Player 1, choose a class")
+    println("$player1 has picked $p1Class")
+    val p2Class = chooseClass("Player 2, choose a class")
+    println("$player2 has picked $p2Class")
 }
 
-fun chooseRace(prompt: String): Char {
+fun chooseRace(prompt: String): String {
     println("Dwarf: strong, sturdy, tough, but not the lightest on feet. (D)")
     println("Elf: elegant, agile, quick, but rather squishy. (E)")
     println("Human: the jack of all trades, master of none. Exceptionally average. (H)")
     while (true) {
-        when (val race = getChar("")) {
-            'D' -> return race
-            'E' -> return race
-            'H' -> return race
-            else -> println("Please pick a valid option, D, E, or H.")
+        when (getChar(prompt)) {
+            'D' -> return "Dwarf"
+            'E' -> return "Elf"
+            'H' -> return "Human"
+            else -> println(ERROR)
+        }
+    }
+}
+
+fun chooseClass(prompt: String): String {
+    println("Melee: close range, with metal sticks that output a lot of damage. (S)")
+    println("Ranged: long range, using sticks and string to lob projectiles. (R)")
+    println("Mage: medium range, with sticks and books to cast spells and shiz. (M)")
+    while (true) {
+        when (getChar(prompt)) {
+            'M' -> return "Mage"
+            'R' -> return "Ranged"
+            'S' -> return "Melee"
+            else -> println(ERROR)
         }
     }
 }
@@ -57,22 +82,13 @@ fun getString(prompt: String): String {
 }
 
 fun getChar(prompt: String): Char {
-    var userInput: String
+    val userInput: Char
 
     while (true) {
         print(prompt)
 
-        userInput = readln()
-        if (userInput.isNotBlank()) break
+        userInput = getString(prompt)[0]
+        break
     }
-    return userInput.first()
-}
-
-fun rules() {
-    println("BOOBS is a turn based 1v1 battle simulator, in which you and a friend pick a race, class, weapon, and duke it out.")
-    println("Races include: the fast Elf, the sturdy Dwarf, and the average Human")
-    println("Classes include: melee, ranger, mage")
-    println("Weapons include: longsword, rapier, shortbow, longbow, spellbook, magic staff")
-    println("You can spend your turn trying to attack the opponent, use an item, or move further away or closer to you opponent")
-    println("")
+    return userInput
 }

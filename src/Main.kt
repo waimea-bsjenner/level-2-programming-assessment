@@ -12,7 +12,6 @@
  * weapons to add minimum: longsword - slow and heavy hitting, rapier - light and quick,
  *                         longbow - high power arrows, shortbow - lots of small arrows,
  *                         spellbook - quick cast light spells, staff - slow cast strong spells
- *                         spells: magic missile - quick, low damage, fireball - slow big damage
  * movement stuff: system to have distance between 2 players - attacks have certain range
  *                 walk/run to move
  *                 dash moves you further but makes you inactive for the next turn
@@ -33,6 +32,8 @@ val LONGBOW = listOf<Int>(40,9)
 val QUICKBOW = listOf<Int>(16,9)
 val WOODSTAFF = listOf<Int>(45,6)
 val SPELLBOOK = listOf<Int>(18,6)
+val player2 = getString("What is the name of Player 2? ")
+val player1 = getString("What is the name of Player 1? ")
 fun main() {
     println(DIVIDER)
     println("BRILLIANT OMEGA OUTSTANDING BATTLE SIMULATOR")
@@ -54,6 +55,50 @@ fun main() {
     var p2 = setUpCharacter2Stats()
     println(p1)
     println(p2)
+    // the loop for attacking
+    when ((0..1).random()) {
+        0 -> {
+            println("$player1 goes first!")
+        }
+        1 -> {
+            println("$player2 goes first!")
+        }
+    }
+    var distance = 4
+    while (p1[0] > 0 || p2[0] > 0) {
+        print(player1)
+        for (i in 1..distance) print("_")
+        println(player2)
+        println("$player1, choose an action to take.")
+        println(DIVIDER)
+        println("ATTACK (A)")
+        println("RUN (R)")
+        println("DASH (D)")
+        println("HEAL (H)")
+        println(DIVIDER)
+        when (readln().uppercase()) {
+            "A" -> {
+                if (distance <= p1[3]) {
+                    println("$player1 attacks $player2!")
+                    p2[0] -= p1[2]
+                }
+                else {
+                    println("$player2 is too far away to attack! you miss!")
+                }
+            }
+
+            "R" -> {
+                println("Would you like to move left or right? (L/R)")
+                when (readln().uppercase()) {
+                    "L" -> {
+                        if (distance < p1[1]) distance = 0
+                        else distance -= p1[1]
+                    }
+                    "R" -> distance += p1[1]
+                }
+            }
+        }
+    }
 }
 
 fun chooseRace(prompt: String): String {
@@ -89,7 +134,6 @@ fun chooseWeapon(prompt: String): String {
 }
 fun setUpCharacter2Stats(): MutableList<Int> {
     val p2 = mutableListOf<Int>()
-    val player2 = getString("What is the name of Player 2? ")
     val p2Race = chooseRace("Player 2, choose a race of character")
     println("$player2 has picked $p2Race")
     val p2Weapon = chooseWeapon("Player 2, choose a weapon")
@@ -111,7 +155,6 @@ fun setUpCharacter2Stats(): MutableList<Int> {
 }
 fun setUpCharacter1Stats(): MutableList<Int> {
     val p1 = mutableListOf<Int>()
-    val player1 = getString("What is the name of Player 1? ")
     // ask p1 for their character's race
     val p1Race = chooseRace("Player 1, choose a race of character")
     println("$player1 has picked $p1Race")

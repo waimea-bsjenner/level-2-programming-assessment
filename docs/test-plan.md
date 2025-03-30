@@ -38,4 +38,19 @@ Statement detailing what should happen. Statement detailing what should happen. 
 
 ---
 
+## Multiple attack weapon testing
 
+should check the 5th index to see if a weapon attacks multiple times, then attack 1-4 times (random)
+
+### Test data to use
+
+I picked a multi-attack weapon and tried to use it, but I got an out-of-bounds error
+![multiAttackTest]()
+
+### expected result
+
+It should've hopefully picked a random number from 1-4 and took away the enemy's health that many times
+
+### fix
+
+I fixed the range to index format, starting at 0 and ending

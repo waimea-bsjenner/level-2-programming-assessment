@@ -19,7 +19,7 @@
  * =====================================================================
  */
 const val DIVIDER = "---------------------------------------------------------------------------------------------"
-const val RULES = "BOOBS is a turn based 1v1 battle simulator, in which you and a friend pick a race and weapon, and duke it out.\nRaces include: the fast Elf, the sturdy Dwarf, and the average Human.y\nWeapons include: longsword, rapier, quickbow, longbow, spellbook, magic staff\nYou can spend your turn trying to attack the opponent, use an item, or move further away or closer to you opponent."
+const val RULES = "BOOBS is a turn based 1v1 battle simulator, in which you and a friend pick a race and weapon, and duke it out.\nRaces include: the fast Elf, the sturdy Dwarf, and the average Human.\nWeapons include: longsword, rapier, quickbow, longbow, spellbook, magic staff\nYou can spend your turn trying to attack the opponent, use an item, or move further away or closer to you opponent."
 const val ERROR = "Please choose a valid option."
 // (Health, Movement speed)
 val DWARF = listOf<Int>(125,2)
@@ -51,10 +51,9 @@ fun main() {
         }
         else println(ERROR)
     }
-    var p1 = setUpCharacter1Stats()
-    var p2 = setUpCharacter2Stats()
-    println(p1)
-    println(p2)
+    val p1 = setUpCharacter1Stats()
+    val p2 = setUpCharacter2Stats()
+    // (health, movespeed, damage, range, multi attack, health potion number)
     // the loop for attacking
     when ((0..1).random()) {
         0 -> {
@@ -65,9 +64,11 @@ fun main() {
         }
     }
     var distance = 4
-    while (p1[0] > 0 || p2[0] > 0) {
-        println("BATTLEFIELD")
+    while (true) {
         println()
+        println("NEXT TURN!")
+        println(DIVIDER)
+        println("BATTLEFIELD")
         println(DIVIDER)
         print(player1)
         for (i in 1..distance) print("_")
@@ -88,13 +89,11 @@ fun main() {
                         println("$player1 attacks $player2 $attackNumber times!".red())
                         for (i in 1..attackNumber) {
                             p2[0] -= p1[2]
-                            println(p2[0])
                         }
                     }
                     else {
                         println("$player1 attacks $player2!".red())
                         p2[0] -= p1[2]
-                        println(p2[0])
                     }
                 }
                 else {
@@ -112,6 +111,84 @@ fun main() {
                     }
                 }
             }
+
+            "H" -> {
+                if (p1[5] > 0) {
+                    println("$player1 drinks a health potion!")
+                    p1[0] += (40..50).random()
+                    p1[5] -= 1
+                }
+                else {
+                    println("$player1 reaches for a health potion, but there's nothing there!")
+                }
+            }
+        }
+        if (p2[0] <= 0) {
+            println("$player2 is out of health! $player1 wins!")
+            break
+        }
+
+        println()
+        println("NEXT TURN!")
+        println(DIVIDER)
+        println("BATTLEFIELD")
+        println(DIVIDER)
+        print(player1)
+        for (i in 1..distance) print("_")
+        println(player2)
+        println(DIVIDER)
+        println("$player2, choose an action to take.")
+        println(DIVIDER)
+        println("ATTACK (A)")
+        println("MOVE (M)")
+        println("DASH (D)")
+        println("HEAL (H)")
+        println(DIVIDER)
+        when (readln().uppercase()) {
+            "A" -> {
+                if (distance <= p2[3]) {
+                    if (p2[4] == 1) {
+                        val attackNumber = (1..4).random()
+                        println("$player2 attacks $player1 $attackNumber times!".red())
+                        for (i in 1..attackNumber) {
+                            p1[0] -= p2[2]
+                        }
+                    }
+                    else {
+                        println("$player2 attacks $player1!".red())
+                        p1[0] -= p2[2]
+                    }
+                }
+                else {
+                    println("$player1 is too far away to attack! you miss!")
+                }
+            }
+
+            "M" -> {
+                println("Would you like to move left or right? (L/R)")
+                when (readln().uppercase()) {
+                    "R" -> distance += p2[1]
+                    "L" -> {
+                        if (distance < p2[1]) distance = 0
+                        else distance -= p2[1]
+                    }
+                }
+            }
+
+            "H" -> {
+                if (p2[5] > 0) {
+                    println("$player2 drinks a health potion!")
+                    p2[0] += (40..50).random()
+                    p2[5] -= 1
+                }
+                else {
+                    println("$player2 reaches for a health potion, but there's nothing there!")
+                }
+            }
+        }
+        if (p1[0] <= 0) {
+            println("$player1 is out of health! $player2 wins!")
+            break
         }
     }
 }
@@ -124,10 +201,12 @@ fun chooseRace(prompt: String): String {
     println(DIVIDER)
     while (true) {
         val char = getChar(prompt).uppercaseChar()
-        if (char == 'D') return "Dwarf"
-        else if (char == 'E') return "Elf"
-        else if (char == 'H') return "Human"
-        else println(ERROR)
+        when (char) {
+            'D' -> return "Dwarf"
+            'E' -> return "Elf"
+            'H' -> return "Human"
+            else -> println(ERROR)
+        }
     }
 }
 
@@ -163,13 +242,15 @@ fun setUpCharacter2Stats(): MutableList<Int> {
         "Human" -> p2.add(HUMAN[0]) && p2.add(HUMAN[1])
     }
     when (p2Weapon) {
-        "Longsword" -> p2.add(LONGSWORD[0]) && p2.add(LONGSWORD[1])
+        "Longsword" -> p2.add(LONGSWORD[0]) && p2.add(LONGSWORD[1]) && p2.add(LONGSWORD[2])
         "Rapier" -> p2.add(RAPIER[0]) && p2.add(RAPIER[1]) && p2.add(RAPIER[2])
-        "Longbow" -> p2.add(LONGBOW[0]) && p2.add(LONGBOW[1])
+        "Longbow" -> p2.add(LONGBOW[0]) && p2.add(LONGBOW[1]) && p2.add(LONGBOW[2])
         "Quickbow" -> p2.add(QUICKBOW[0]) && p2.add(QUICKBOW[1]) && p2.add(QUICKBOW[2])
-        "Woodstaff" -> p2.add(WOODSTAFF[0]) && p2.add(WOODSTAFF[1])
+        "Woodstaff" -> p2.add(WOODSTAFF[0]) && p2.add(WOODSTAFF[1]) && p2.add(WOODSTAFF[2])
         "Spellbook" -> p2.add(SPELLBOOK[0]) && p2.add(SPELLBOOK[1]) && p2.add(SPELLBOOK[2])
     }
+
+    p2.add(2)
     return p2
 }
 fun setUpCharacter1Stats(): MutableList<Int> {
@@ -188,13 +269,14 @@ fun setUpCharacter1Stats(): MutableList<Int> {
     }
 
     when (p1Weapon) {
-        "Longsword" -> p1.add(LONGSWORD[0]) && p1.add(LONGSWORD[1])
-        "Rapier" -> p1.add(RAPIER[0]) && p1.add(RAPIER[1])
-        "Longbow" -> p1.add(LONGBOW[0]) && p1.add(LONGBOW[1])
-        "Quickbow" -> p1.add(QUICKBOW[0]) && p1.add(QUICKBOW[1])
-        "Woodstaff" -> p1.add(WOODSTAFF[0]) && p1.add(WOODSTAFF[1])
-        "Spellbook" -> p1.add(SPELLBOOK[0]) && p1.add(SPELLBOOK[1])
+        "Longsword" -> p1.add(LONGSWORD[0]) && p1.add(LONGSWORD[1]) && p1.add(LONGSWORD[2])
+        "Rapier" -> p1.add(RAPIER[0]) && p1.add(RAPIER[1]) && p1.add(RAPIER[2])
+        "Longbow" -> p1.add(LONGBOW[0]) && p1.add(LONGBOW[1]) && p1.add(LONGBOW[2])
+        "Quickbow" -> p1.add(QUICKBOW[0]) && p1.add(QUICKBOW[1]) && p1.add(QUICKBOW[2])
+        "Woodstaff" -> p1.add(WOODSTAFF[0]) && p1.add(WOODSTAFF[1]) && p1.add(WOODSTAFF[2])
+        "Spellbook" -> p1.add(SPELLBOOK[0]) && p1.add(SPELLBOOK[1]) && p1.add(SPELLBOOK[2])
     }
+    p1.add(2)
     return p1
 }
 

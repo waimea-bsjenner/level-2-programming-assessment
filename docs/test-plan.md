@@ -16,11 +16,11 @@ I have made a function to get the player to choose a race for their character.
 
 ### Test Data To Use
 
-Details of test data and reasons for selection. Details of test data and reasons for selection. Details of test data and reasons for selection.
+I will select each character for the race, and try some invalid inputs
 
 ### Expected Test Result
 
-Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen. 
+it should reject invalid inputs from the user and ask for them to try again, and it should accept valid characters (uppercase and lowercase) and apply the appropriate race 
 
 ---
 
@@ -30,27 +30,50 @@ It should get a character from the user.
 
 ### Test Data To Use
 
-Details of test data and reasons for selection. Details of test data and reasons for selection. Details of test data and reasons for selection.
+I'll enter some strings and characters and integers
 
 ### Expected Test Result
 
-Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen. 
+it should return the first character in a string given by the user. 
 
 ---
 
 ## Multiple attack weapon testing
 
-should check the 5th index to see if a weapon attacks multiple times, then attack 1-4 times (random)
+makes some weapons attack the opponent multiple times
 
 ### Test data to use
 
-I picked a multi-attack weapon and tried to use it, but I got an out-of-bounds error
-![multiAttackTest]()
+Will try using a multi attacking weapon
 
 ### expected result
 
-It should've hopefully picked a random number from 1-4 and took away the enemy's health that many times
+It should hopefully picked a random number from 1-4 and took away the enemy's health that many times
 
-### fix
+---
 
-I fixed the range to index format, starting at 0 and ending
+## Health potion system
+
+gives the players a way to heal during battle
+
+### test data to use
+
+Ill use a health potion and get it to print the number of health and potions before and after.
+
+### expected result 
+
+It should check if the player has any health potions available, if so, it should add a random number between 40 and 50 to the players health, and take away one of their potions. If the player doesnt have a health potion, it wastes their turn because im evil.
+
+---
+
+## End game if one player's health is less than 0
+
+gives a way to conclude a winner
+
+### test data to use
+
+put the turn system in while loop that continues if both player's HP is above 0
+
+### expected result
+
+should end process if one player's health goes below 0, ending the loop

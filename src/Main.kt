@@ -33,12 +33,12 @@ val QUICKBOW = listOf<Int>(16,9,1)
 val WOODSTAFF = listOf<Int>(45,6,0)
 val SPELLBOOK = listOf<Int>(18,6,1)
 const val PLAYERNAME = 0
-const val HEALTH = 1
-const val SPEED = 2
-const val DAMAGE = 3
-const val RANGE = 4
-const val MULTI = 5
-const val POTION = 6
+const val HEALTH = 0
+const val SPEED = 1
+const val DAMAGE = 2
+const val RANGE = 3
+const val MULTI = 4
+const val POTION = 5
 
 fun main() {
     println(DIVIDER)
@@ -69,21 +69,12 @@ fun main() {
 
     // (health, movespeed, damage, range, multi attack, health potion number)
     // the loop for attacking
-    when ((0..1).random()) {
-        0 -> {
-            println("${p1Name]} goes first!")
-        }
-        1 -> {
-            println("${p2[PLA
-                    YERNAME]} goes first!")
-        }
-    }
     var distance = 4
 
     var currentPlayer = 0
     var currentOpponent = 1
 
-    while (p1[HEALTH] > 0 && p2[HEALTH] > 0) {
+    while (p1Stats[HEALTH] > 0 && p2Stats[HEALTH] > 0) {
 
         val player = playerStats[currentPlayer]
         val opponent = playerStats[currentOpponent]
@@ -93,11 +84,11 @@ fun main() {
         println(DIVIDER)
         println("BATTLEFIELD")
         println(DIVIDER)
-        print(p1[PLAYERNAME])
+        print(playerNames[0])
         for (i in 1..distance) print("_")
-        println(p2[PLAYERNAME])
+        println(playerNames[1])
         println(DIVIDER)
-        println("${player[PLAYERNAME]}, choose an action to take.")
+        println("${playerNames[currentPlayer]}, choose an action to take.")
         println(DIVIDER)
         println("ATTACK (A)")
         println("MOVE (M)")
@@ -107,15 +98,15 @@ fun main() {
         when (readln().uppercase()) {
             "A" -> {
                 if (distance <= player[RANGE]) {
-                    if (p1[MULTI] == 1) {
+                    if (player[MULTI] == 1) {
                         val attackNumber = (1..4).random()
-                        println("${player[PLAYERNAME]} attacks ${opponent[PLAYERNAME]} $attackNumber times!".red())
+                        println("${playerNames[currentPlayer]} attacks ${playerNames[currentOpponent]} $attackNumber times!".red())
                         for (i in 1..attackNumber) {
                             opponent[HEALTH] -= player[DAMAGE]
                         }
                     }
                     else {
-                        println("${player[PLAYERNAME]} attacks ${opponent[PLAYERNAME]}!".red())
+                        println("${playerNames[currentPlayer]} attacks ${opponent[PLAYERNAME]}!".red())
                         opponent[HEALTH] -= player[DAMAGE]
                     }
                 }

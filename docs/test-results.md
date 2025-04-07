@@ -42,4 +42,16 @@ allows the player to gain back health
 
 ### test data used
 
+---
+
+## dashing
+
+dashing moves the player two times their move speed in one turn, but gives the opponent two turns in a row.
+
+### test data used
+
+I put continue after the dash option so it skips the player-opponent change
+
+### test result
+
 

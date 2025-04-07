@@ -58,8 +58,8 @@ fun main() {
         else println(ERROR)
     }
 
-    val p1Name = getPlayerName()
-    val p2Name = getPlayerName()
+    val p1Name = getString("What is the name of player 1?")
+    val p2Name = getString("What is the name of player 2?")
 
     val p1Stats = setUpCharacterStats(p1Name)
     val p2Stats = setUpCharacterStats(p2Name)
@@ -106,22 +106,35 @@ fun main() {
                         }
                     }
                     else {
-                        println("${playerNames[currentPlayer]} attacks ${opponent[PLAYERNAME]}!".red())
+                        println("${playerNames[currentPlayer]} attacks ${playerNames[currentOpponent]}!".red())
                         opponent[HEALTH] -= player[DAMAGE]
                     }
                 }
                 else {
-                    println("${opponent[PLAYERNAME]} is too far away to attack! you miss!".blue())
+                    println("${playerNames[currentOpponent]} is too far away to attack! you miss!".blue())
                 }
             }
 
             "M" -> {
-                println("Would you like to move left or right? (L/R)")
-                when (readln().uppercase()) {
-                    "L" -> distance += player[SPEED]
-                    "R" -> {
-                        if (distance < player[SPEED]) distance = 0
-                        else distance -= player[SPEED]
+                when (currentPlayer) {
+                    0 -> {
+                        when (readln().uppercase()) {
+                            "L" -> distance += player[SPEED]
+                            "R" -> {
+                                if (distance < player[SPEED]) distance = 0
+                                else distance -= player[SPEED]
+                            }
+                        }
+                    }
+
+                    1 -> {
+                        when (readln().uppercase()) {
+                            "R" -> distance += player[SPEED]
+                            "L" -> {
+                                if (distance < player[SPEED]) distance = 0
+                                else distance -= player[SPEED]
+                            }
+                        }
                     }
                 }
             }
@@ -160,7 +173,7 @@ fun main() {
                         }
                     }
                 }
-
+                continue
             }
         }
         when (currentPlayer) {
@@ -174,6 +187,8 @@ fun main() {
             }
         }
     }
+    if (p1Stats[HEALTH] == 0) println("$p2Name wins!")
+    else println("$p1Name wins!")
 }
 
 fun chooseRace(prompt: String): String {
@@ -212,10 +227,6 @@ fun chooseWeapon(prompt: String): String {
         else if (char == 'B') return "Spellbook"
         else println(ERROR)
     }
-}
-
-fun getPlayerName(): String {
-    return getString("What is the name of player 2?")
 }
 
 fun setUpCharacterStats(name: String): MutableList<Int> {

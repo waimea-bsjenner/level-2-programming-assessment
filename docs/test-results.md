@@ -54,4 +54,5 @@ I put continue after the dash option so it skips the player-opponent change
 
 ### test result
 
-
+it did not infact skip the players next turn, but because it didn't change who was playing and who was opposing, it gave the current player infinite turns until they stop dashing.
+![dashTest.gif](screenshots/dashTest.gif)

@@ -82,7 +82,7 @@ should end process if one player's health goes below 0, ending the loop
 
 ## Dashing should skip the players next turn
 
-dashing moves twice in one turn, but you loose your next turn
+dashing moves twice in one turn, but you lose your next turn
 
 ### test data to use
 

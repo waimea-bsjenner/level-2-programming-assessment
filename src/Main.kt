@@ -32,7 +32,6 @@ val LONGBOW = listOf<Int>(40,9,0)
 val QUICKBOW = listOf<Int>(16,9,1)
 val WOODSTAFF = listOf<Int>(45,6,0)
 val SPELLBOOK = listOf<Int>(18,6,1)
-const val PLAYERNAME = 0
 const val HEALTH = 0
 const val SPEED = 1
 const val DAMAGE = 2
@@ -95,85 +94,101 @@ fun main() {
         println("DASH (D)")
         println("HEAL (H)")
         println(DIVIDER)
-        when (readln().uppercase()) {
-            "A" -> {
-                if (distance <= player[RANGE]) {
-                    if (player[MULTI] == 1) {
-                        val attackNumber = (1..4).random()
-                        println("${playerNames[currentPlayer]} attacks ${playerNames[currentOpponent]} $attackNumber times!".red())
-                        for (i in 1..attackNumber) {
+        while (true) {
+            when (readln().uppercase()) {
+                "A" -> {
+                    if (distance <= player[RANGE]) {
+                        if (player[MULTI] == 1) {
+                            val attackNumber = (1..4).random()
+                            println("${playerNames[currentPlayer]} attacks ${playerNames[currentOpponent]} $attackNumber times!".red())
+                            for (i in 1..attackNumber) {
+                                opponent[HEALTH] -= player[DAMAGE]
+                            }
+                        }
+                        else {
+                            println("${playerNames[currentPlayer]} attacks ${playerNames[currentOpponent]}!".red())
                             opponent[HEALTH] -= player[DAMAGE]
                         }
                     }
                     else {
-                        println("${playerNames[currentPlayer]} attacks ${playerNames[currentOpponent]}!".red())
-                        opponent[HEALTH] -= player[DAMAGE]
+                        println("${playerNames[currentOpponent]} is too far away to attack! you miss!".blue())
                     }
+                    break
                 }
-                else {
-                    println("${playerNames[currentOpponent]} is too far away to attack! you miss!".blue())
-                }
-            }
 
-            "M" -> {
-                when (currentPlayer) {
-                    0 -> {
-                        when (readln().uppercase()) {
-                            "L" -> distance += player[SPEED]
-                            "R" -> {
-                                if (distance < player[SPEED]) distance = 0
-                                else distance -= player[SPEED]
+                "M" -> {
+                    while (true) {
+                        when (currentPlayer) {
+                            0 -> {
+                                println("Would you like to move left or right?")
+                                when (readln().uppercase()) {
+                                    "L" -> distance += player[SPEED]
+                                    "R" -> {
+                                        if (distance < player[SPEED]) distance = 0
+                                        else distance -= player[SPEED]
+                                    }
+                                }
                             }
+
+                            1 -> {
+                                println("Would you like to move left or right?")
+                                when (readln().uppercase()) {
+                                    "R" -> distance += player[SPEED]
+                                    "L" -> {
+                                        if (distance < player[SPEED]) distance = 0
+                                        else distance -= player[SPEED]
+                                    }
+                                }
+                            }
+                            else -> println(ERROR)
+                        }
+                        break
+                    }
+                    break
+                }
+
+                "H" -> {
+                    if (player[POTION] > 0) {
+                        println("${playerNames[currentPlayer]} drinks a health potion!".green())
+                        player[HEALTH] += (40..50).random()
+                        player[POTION] -= 1
+                    } else {
+                        println("${playerNames[currentPlayer]} reaches for a health potion, but there's nothing there!")
+                    }
+                    break
+                }
+
+                "D" -> {
+                    println("Would you like to dash left or right? (L/R)")
+                    while (true) {
+                        when (currentPlayer) {
+                            0 -> {
+                                when (readln().uppercase()) {
+                                    "L" -> distance += (2 * player[SPEED])
+                                    "R" -> {
+                                        if (distance < player[SPEED]) distance = 0
+                                        else distance -= (2 * player[SPEED])
+                                    }
+                                }
+                                break
+                            }
+
+                            1 -> {
+                                when (readln().uppercase()) {
+                                    "R" -> distance += (2 * player[SPEED])
+                                    "L" -> {
+                                        if (distance < player[SPEED]) distance = 0
+                                        else distance -= (2 * player[SPEED])
+                                    }
+                                }
+                                 break
+                            }
+                            else -> println(ERROR)
                         }
                     }
-
-                    1 -> {
-                        when (readln().uppercase()) {
-                            "R" -> distance += player[SPEED]
-                            "L" -> {
-                                if (distance < player[SPEED]) distance = 0
-                                else distance -= player[SPEED]
-                            }
-                        }
-                    }
+                    break
                 }
-            }
-
-            "H" -> {
-                if (player[POTION] > 0) {
-                    println("${player[PLAYERNAME]} drinks a health potion!".green())
-                    player[HEALTH] += (40..50).random()
-                    player[POTION] -= 1
-                }
-                else {
-                    println("${player[PLAYERNAME]} reaches for a health potion, but there's nothing there!")
-                }
-            }
-
-            "D" -> {
-                println("Would you like to dash left or right? (L/R)")
-                when (currentPlayer) {
-                    0 -> {
-                        when (readln().uppercase()) {
-                            "L" -> distance += (2 * player[SPEED])
-                            "R" -> {
-                                if (distance < player[SPEED]) distance = 0
-                                else distance -= (2 * player[SPEED])
-                            }
-                        }
-                    }
-
-                    1 -> {
-                        when (readln().uppercase()) {
-                            "R" -> distance += (2 * player[SPEED])
-                            "L" -> {
-                                if (distance < player[SPEED]) distance = 0
-                                else distance -= (2 * player[SPEED])
-                            }
-                        }
-                    }
-                }
-                continue
+                else -> println(ERROR)
             }
         }
         when (currentPlayer) {

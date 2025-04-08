@@ -43,26 +43,3 @@ allows the player to gain back health
 ### test data used
 
 ---
-
-## dashing
-
-dashing moves the player two times their move speed in one turn, but gives the opponent two turns in a row.
-
-### test data used
-
-I put continue after the dash option so it skips the player-opponent change
-
-### test result
-
-it did not infact skip the players next turn, but because it didn't change who was playing and who was opposing, it gave the current player infinite turns until they stop dashing.
-![dashTest.gif](screenshots/dashTest.gif)
-
-### test data used 2
-
-I added this missTurn variable that should wait until after the other players turn before not changing it
-![dashTest2.png](screenshots/dashTest2.png)
-
-### test result 2
-
-It didn't work again. This time it didn't even do anything and broke the move option
-![dashTest2.gif](screenshots/dashTest2.gif)

@@ -79,17 +79,3 @@ put the turn system in while loop that continues if both player's HP is above 0
 should end process if one player's health goes below 0, ending the loop
 
 ---
-
-## Dashing should skip the players next turn
-
-dashing moves twice in one turn, but you lose your next turn
-
-### test data to use
-
-ill dash and see if it skips the next time the player has a turn
-
-### expected result
-
-should move the player twice their movement speed, but give the next player two turns in a row.
-
----

@@ -22,16 +22,16 @@ const val DIVIDER = "-----------------------------------------------------------
 const val RULES = "BOOBS is a turn based 1v1 battle simulator, in which you and a friend pick a race and weapon, and duke it out.\nRaces include: the fast Elf, the sturdy Dwarf, and the average Human.\nWeapons include: longsword, rapier, quickbow, longbow, spellbook, magic staff\nYou can spend your turn trying to attack the opponent, use an item, or move further away or closer to you opponent."
 const val ERROR = "Please choose a valid option."
 // (Health, Movement speed)
-val DWARF = listOf<Int>(125,2)
-val ELF = listOf<Int>(75,4)
-val HUMAN = listOf<Int>(100,3)
+val DWARF = listOf(125,2)
+val ELF = listOf(75,4)
+val HUMAN = listOf(10,3)
 // (Damage, Attack range, binary for multiple attacks)
-val LONGSWORD = listOf<Int>(50,3,0)
-val RAPIER = listOf<Int>(20,3,1)
-val LONGBOW = listOf<Int>(40,9,0)
-val QUICKBOW = listOf<Int>(16,9,1)
-val WOODSTAFF = listOf<Int>(45,6,0)
-val SPELLBOOK = listOf<Int>(18,6,1)
+val LONGSWORD = listOf(50,3,0)
+val RAPIER = listOf(20,3,1)
+val LONGBOW = listOf(40,9,0)
+val QUICKBOW = listOf(16,9,1)
+val WOODSTAFF = listOf(45,6,0)
+val SPELLBOOK = listOf(18,6,1)
 const val HEALTH = 0
 const val SPEED = 1
 const val DAMAGE = 2
@@ -43,7 +43,7 @@ fun main() {
     println(DIVIDER)
     println("BRILLIANT OMEGA OUTSTANDING BATTLE SIMULATOR")
     println(DIVIDER)
-    println("Welcome to the Brilliant Omega Outstanding Battle Simulator, or BOOBS for short. Would you like to know the rules? (y/n) ")
+    println("Welcome to the Brilliant Omega Outstanding Battle Simulator, or BOOBS for short. Would you like to know the rules? (Y)es/(N)o")
     while (true) {
         val printRules = readln().lowercase()
         if (printRules == "y") {
@@ -100,13 +100,13 @@ fun main() {
                     if (distance <= player[RANGE]) {
                         if (player[MULTI] == 1) {
                             val attackNumber = (1..4).random()
-                            println("${playerNames[currentPlayer]} attacks ${playerNames[currentOpponent]} $attackNumber times!".red())
+                            println("${playerNames[currentPlayer]} attacks ${playerNames[currentOpponent]} $attackNumber times for ${attackNumber * player[DAMAGE]} damage!!".red())
                             for (i in 1..attackNumber) {
                                 opponent[HEALTH] -= player[DAMAGE]
                             }
                         }
                         else {
-                            println("${playerNames[currentPlayer]} attacks ${playerNames[currentOpponent]}!".red())
+                            println("${playerNames[currentPlayer]} attacks ${playerNames[currentOpponent]} for ${player[DAMAGE]}!".red())
                             opponent[HEALTH] -= player[DAMAGE]
                         }
                     }
@@ -150,45 +150,16 @@ fun main() {
                 "H" -> {
                     if (player[POTION] > 0) {
                         println("${playerNames[currentPlayer]} drinks a health potion!".green())
+                        print("Their health goes from ${player[HEALTH]}".green())
                         player[HEALTH] += (40..50).random()
+                        println("to ${player[HEALTH]}!".green())
                         player[POTION] -= 1
+
                     } else {
                         println("${playerNames[currentPlayer]} reaches for a health potion, but there's nothing there!")
                     }
                     break
                 }
-
-                "D" -> {
-                    println("Would you like to dash left or right? (L/R)")
-                    while (true) {
-                        when (currentPlayer) {
-                            0 -> {
-                                when (readln().uppercase()) {
-                                    "L" -> distance += (2 * player[SPEED])
-                                    "R" -> {
-                                        if (distance < player[SPEED]) distance = 0
-                                        else distance -= (2 * player[SPEED])
-                                    }
-                                }
-                                break
-                            }
-
-                            1 -> {
-                                when (readln().uppercase()) {
-                                    "R" -> distance += (2 * player[SPEED])
-                                    "L" -> {
-                                        if (distance < player[SPEED]) distance = 0
-                                        else distance -= (2 * player[SPEED])
-                                    }
-                                }
-                                 break
-                            }
-                            else -> println(ERROR)
-                        }
-                    }
-                    break
-                }
-                else -> println(ERROR)
             }
         }
         when (currentPlayer) {
@@ -202,15 +173,15 @@ fun main() {
             }
         }
     }
-    if (p1Stats[HEALTH] == 0) println("$p2Name wins!")
-    else println("$p1Name wins!")
+    if (p1Stats[HEALTH] == 0) println("$p1Name is out of health! $p2Name wins!")
+    else println("$p2Name is out of health! $p1Name wins!")
 }
 
 fun chooseRace(prompt: String): String {
     println(DIVIDER)
-    println("Dwarf: strong, sturdy, tough, but not the lightest on feet. (D)")
-    println("Elf: elegant, agile, quick, but rather squishy. (E)")
-    println("Human: the jack of all trades, master of none. Exceptionally average. (H)")
+    println("Dwarf: 125 health, move speed of 2. (D)")
+    println("Elf: 75 health, move speed of 4. (E)")
+    println("Human: 100 health, move speed of 3. (H)")
     println(DIVIDER)
     while (true) {
         val char = getChar(prompt).uppercaseChar()
@@ -225,22 +196,24 @@ fun chooseRace(prompt: String): String {
 
 fun chooseWeapon(prompt: String): String {
     println(DIVIDER)
-    println("Longsword: close range, slow, heavy attacks. (S)")
-    println("Rapier: close range, quick, light attacks. (R)")
-    println("Longbow: long range, slow, heavy attacks. (L)")
-    println("Quickbow: long range, quick, light attacks. (Q)")
-    println("Woodstaff: medium range, slow, heavy attacks. (W)")
-    println("Spellbook: medium range, quick, light attacks. (B)")
+    println("Longsword: range of 3, 1 attack, 50 damage. (S)")
+    println("Rapier: range of 3, 1-4 attacks, 20 damage. (R)")
+    println("Longbow: range of 9, 1 attack, 40 damage. (L)")
+    println("Quickbow: range of 9, 1-4 attacks, 16 damage. (Q)")
+    println("Woodstaff: range of 6, 1 attack, 45 damage. (W)")
+    println("Spellbook: range of 6, 1-4 attacks, 18 damage. (B)")
     println(DIVIDER)
     while (true) {
         val char = getChar(prompt).uppercaseChar()
-        if (char == 'S') return "Longsword"
-        else if (char == 'R') return "Rapier"
-        else if (char == 'L') return "Longbow"
-        else if (char == 'Q') return "Quickbow"
-        else if (char == 'W') return "Woodstaff"
-        else if (char == 'B') return "Spellbook"
-        else println(ERROR)
+        when (char) {
+            'S' -> return "Longsword"
+            'R' -> return "Rapier"
+            'L' -> return "Longbow"
+            'Q' -> return "Quickbow"
+            'W' -> return "Woodstaff"
+            'B' -> return "Spellbook"
+            else -> println(ERROR)
+        }
     }
 }
 
@@ -248,9 +221,9 @@ fun setUpCharacterStats(name: String): MutableList<Int> {
     val stats = mutableListOf<Int>()
 
     val race = chooseRace("${name}, choose a race of character")
-    println("${name} has picked $race")
+    println("$name has picked $race")
     val weapon = chooseWeapon("${name}, choose a weapon")
-    println("${name} has picked $weapon")
+    println("$name has picked $weapon")
     when (race) {
         "Dwarf" -> stats.add(DWARF[0]) && stats.add(DWARF[1])
         "Elf" -> stats.add(ELF[0]) && stats.add(ELF[1])

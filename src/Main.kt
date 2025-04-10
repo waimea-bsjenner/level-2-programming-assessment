@@ -2,7 +2,7 @@
  * =====================================================================
  * Programming Project for NCEA Level 2, Standard 91896
  * ---------------------------------------------------------------------
- * Project Name:   Brilliant Omega Outstanding Battle Simulator (B.O.O.B.S)
+ * Project Name:   Brilliant Omega Outstanding Battle Simulator
  * Project Author: Benjamin Jenner
  * GitHub Repo:    https://github.com/waimea-bsjenner/level-2-programming-assessment
  * ---------------------------------------------------------------------
@@ -19,12 +19,12 @@
  * =====================================================================
  */
 const val DIVIDER = "---------------------------------------------------------------------------------------------"
-const val RULES = "BOOBS is a turn based 1v1 battle simulator, in which you and a friend pick a race and weapon, and duke it out.\nRaces include: the fast Elf, the sturdy Dwarf, and the average Human.\nWeapons include: Longsword, Rapier, Quickbow, Longbow, Spellbook, Woodstaff\nYou can spend your turn trying to attack the opponent, use an health potion, or move further away or closer to you opponent."
+const val RULES = "Brilliant Omega Outstanding Battle Simulator is a turn based 1v1 battle simulator, in which you and a friend pick a race and weapon, and duke it out.\nRaces include: the fast Elf, the sturdy Dwarf, and the average Human.\nWeapons include: Longsword, Rapier, Quickbow, Longbow, Spellbook, Woodstaff\nYou can spend your turn trying to attack the opponent, use an health potion, or move further away or closer to you opponent."
 const val ERROR = "Please choose a valid option."
 // (Health, Movement speed)
 val DWARF = listOf(125,2)
 val ELF = listOf(75,4)
-val HUMAN = listOf(10,3)
+val HUMAN = listOf(100,3)
 // (Damage, Attack range, binary for multiple attacks)
 val LONGSWORD = listOf(50,3,0)
 val RAPIER = listOf(20,3,1)
@@ -40,11 +40,18 @@ const val RANGE = 3
 const val MULTI = 4
 const val POTION = 5
 
+/**
+ * This is the main function. Within it is:
+ * The rules
+ * Name get
+ * The stats of both players
+ * the loop for taking turns
+ */
 fun main() {
     println(DIVIDER)
     println("BRILLIANT OMEGA OUTSTANDING BATTLE SIMULATOR")
     println(DIVIDER)
-    println("Welcome to the Brilliant Omega Outstanding Battle Simulator, or BOOBS for short. Would you like to know the rules? (Y)es/(N)o")
+    println("Welcome to the Brilliant Omega Outstanding Battle Simulator. Would you like to know the rules? (Y)es/(N)o")
     while (true) {
         val printRules = readln().lowercase()
         if (printRules == "y") {
@@ -79,9 +86,8 @@ fun main() {
         // decide who's turn it is
         val player = playerStats[currentPlayer]
         val opponent = playerStats[currentOpponent]
-
         println()
-        println("NEXT TURN!")
+        println()
         println(DIVIDER)
         println("BATTLEFIELD")
         println(DIVIDER)
@@ -91,6 +97,7 @@ fun main() {
         println(playerNames[1])
         println()
         println(DIVIDER)
+        println()
         println("${playerNames[currentPlayer]}, choose an action to take.")
         println(DIVIDER)
         println("ATTACK (A)")
@@ -171,7 +178,7 @@ fun main() {
                 "H" -> {
                     if (player[POTION] > 0) {
                         println("${playerNames[currentPlayer]} drinks a health potion!".green())
-                        print("Their health goes from ${player[HEALTH]}".green())
+                        print("Their health goes from ${player[HEALTH]} ".green())
                         player[HEALTH] += (40..50).random()
                         println("to ${player[HEALTH]}!".green())
                         player[POTION] -= 1
@@ -199,7 +206,10 @@ fun main() {
     if (p1Stats[HEALTH] < 0) println("$p1Name is out of health! $p2Name wins!")
     else println("$p2Name is out of health! $p1Name wins!")
 }
-// this function lets the player pick a race
+
+/**
+ * this function gets the player to input a race for their character using the getChar function
+ */
 fun chooseRace(prompt: String): String {
     println(DIVIDER)
     println("Dwarf: 125 health, move speed of 2. (D)")
@@ -216,7 +226,10 @@ fun chooseRace(prompt: String): String {
         }
     }
 }
-// this function lets the player pick a weapon
+
+/**
+ * this function gets the player to input a weapon for their character also using the getChar function
+ */
 fun chooseWeapon(prompt: String): String {
     println(DIVIDER)
     println("Longsword: range of 3, 1 attack, 50 damage. (S)")
@@ -239,7 +252,10 @@ fun chooseWeapon(prompt: String): String {
         }
     }
 }
-//this function creates the list that holds all the character stats
+
+/**
+ * this function is what get all the character stats and puts it into a neat little list
+ */
 fun setUpCharacterStats(name: String): MutableList<Int> {
     val stats = mutableListOf<Int>()
     //funny kieran meme
@@ -262,9 +278,9 @@ fun setUpCharacterStats(name: String): MutableList<Int> {
     }
     // this uses the chooseRace and chooseWeapon functions to build the character
     else {
-        val race = chooseRace("${name}, choose a race of character")
+        val race = chooseRace("$name, choose a race of character")
         println("$name has picked $race")
-        val weapon = chooseWeapon("${name}, choose a weapon")
+        val weapon = chooseWeapon("$name, choose a weapon")
         println("$name has picked $weapon")
         when (race) {
             "Dwarf" -> stats.add(DWARF[0]) && stats.add(DWARF[1])

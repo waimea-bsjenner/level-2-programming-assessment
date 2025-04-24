@@ -16,7 +16,7 @@ I tested a weapon with multiple attacks on the opponent
 
 ![the multiple attack test.png](screenshots/multiAttackTest.png)
 
-There is a problem with the way I stored the multi attack property. I only added the property to weapons that were meant to have it, so when i checked for it, if it was a weapon that didnt have the index, it broke. So i added the index to all of them, but if the value was 0, then it would attack once, but if it was 1, then it would go with the multiple attack procedure, and this worked.
+There is a problem with the way I stored the multi attack property. I only added the property to weapons that were meant to have it, so when i checked for it, if it was a weapon that didnt have the index, it broke. So i added the index to all of them. If the value was 0, then it would attack once, but if it was 1, then it would go with the multiple attack procedure, and this worked.
 
 ---
 
@@ -38,8 +38,10 @@ The condition I used only check if one player's health was above zero, so if onl
 
 ## health potion system
 
-allows the player to gain back health
+allows the player to gain back health, specifically a random number between 40 and 50
 
 ### test data used
+
+i healed in game
 
 ---

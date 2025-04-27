@@ -71,7 +71,9 @@ fun main() {
     var currentPlayer = 0
     var currentOpponent = 1
 
-    // the loop for attacking
+    /**
+     * The main loop for attacking
+     */
     while (p1Stats[HEALTH] > 0 && p2Stats[HEALTH] > 0) {
 
         // decide who's turn it is

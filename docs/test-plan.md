@@ -48,7 +48,7 @@ Will try using a multi attacking weapon
 
 ### expected result
 
-It should hopefully picked a random number from 1-4 and took away the enemy's health that many times
+It should hopefully pick a random number from 1-4 and attack the opponent that many times
 
 ---
 

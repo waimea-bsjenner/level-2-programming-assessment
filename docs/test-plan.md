@@ -58,11 +58,11 @@ gives the players a way to heal during battle
 
 ### test data to use
 
-Ill use a health potion and get it to print the number of health and potions before and after.
+I'll use a health potion and get it to print the number of health and potions before and after.
 
 ### expected result 
 
-It should check if the player has any health potions available, if so, it should add a random number between 40 and 50 to the players health, and take away one of their potions. If the player doesnt have a health potion, it wastes their turn because im evil.
+It should check if the player has any health potions available, if so, it should add a random number between 40 and 50 to the players health, and take away one of their potions. If the player doesn't have a health potion, it wastes their turn because im evil.
 
 ---
 
@@ -76,6 +76,18 @@ put the turn system in while loop that continues if both player's HP is above 0
 
 ### expected result
 
-should end process if one player's health goes below 0, ending the loop
+should announce a winner and end the loop and process if a player's health goes to or below 0
 
 ---
+
+## Turn system and end loop works
+
+see if the game actually works and is playable
+
+### test data to use
+
+I'll play a test match
+
+### expected result
+
+It shouldn't break and use appropriate values

@@ -57,15 +57,20 @@ fun main() {
     }
 
     val p1Name = getString("What is the name of player 1?")
-    val p2Name = getString("What is the name of player 2?")
-
+    var p2Name: String
+    // Making sure players 1 and 2 can't have the same names
+    while (true) {
+        p2Name = getString("What is the name of player 2 (can't be the same as player 1)?")
+        if (p2Name == p1Name) println(ERROR)
+        else break
+    }
     val p1Stats = setUpCharacterStats(p1Name)
     val p2Stats = setUpCharacterStats(p2Name)
 
     val playerNames = listOf(p1Name, p2Name)
     val playerStats = listOf(p1Stats, p2Stats)
 
-    // the distance between the players
+    // the number of spaces between the players
     var distance = 4
 
     var currentPlayer = 0
@@ -112,7 +117,7 @@ fun main() {
                             }
                             println("to ${opponent[HEALTH]} health!")
                         }
-                        // if the player's name is "Kieran"
+                        // if the player's name is "Kieran" because why not
                         else if (player[MULTI] == 2) {
                             println("Kieran attacks ${playerNames[currentOpponent]} [INFINITY] times for [INFINITY] damage!".red())
                             print("${playerNames[currentOpponent]} goes from ${opponent[HEALTH]} health ")
@@ -294,7 +299,9 @@ fun setUpCharacterStats(name: String): MutableList<Int> {
     return stats
 }
 
-
+/**
+ * This is a simple getString function, which gets a string from the user
+ */
 fun getString(prompt: String): String {
     var userInput: String
 
@@ -307,6 +314,9 @@ fun getString(prompt: String): String {
     return userInput
 }
 
+/**
+ * This is a function which uses the getString function, then takes the first character of it and returns that
+ */
 fun getChar(prompt: String): Char {
 
     val userInput: Char = getString(prompt)[0]

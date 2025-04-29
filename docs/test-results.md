@@ -14,7 +14,7 @@ I tested a weapon with multiple attacks on the opponent
 
 ### Test Result
 
-There is a problem with the way I stored the multi attack property. I only added the property to weapons that were meant to have it, so when i checked for it, if it was a weapon that didnt have the index, it broke. So i added the index to all of them. If the value was 0, then it would attack once, but if it was 1, then it would go with the multiple attack procedure, and this worked.
+There is a problem with the way I stored the multi attack property. I only added the property to weapons that were meant to have it, so when I checked for it, if it was a weapon that didn't have the index, it broke. So I added the index to all of them. If the value was 0, then it would attack once, but if it was 1, then it would go with the multiple attack procedure, and this worked.
 
 ![multiAttackTest.png](screenshots/multiAttackTest.png)
 
@@ -26,7 +26,7 @@ The next time I got 1 attack, the lower limit.
 
 ![multiAttackTest3.png](screenshots/multiAttackTest3.png)
 
-Finally I got 2 attacks, which is within the limits.
+Finally, I got 2 attacks, which is within the limits.
 
 ![multiAttackTest4.png](screenshots/multiAttackTest4.png)
 
@@ -78,4 +78,56 @@ I then tested until it healed me the minimum 40 health
 
 ## chooseRace function
 
-It is what lets the player decide their health and move speed (rate at which they can change the distance variable)
+It is what lets the player decide their health and move speed (rate at which they can change the distance between two players)
+
+### test data used
+
+I selected the races
+
+### Test result
+
+I started by putting a bunch of googily moogily nonsense, and it denied everything invalid. I then put in a valid option, D for Dwarf, and it returned the correct value
+
+![chooseRaceTest.png](screenshots/chooseRaceTest.png)
+
+I then put in a bit more rubbish, and then another valid option, E for Elf
+
+![chooseRaceTest2.png](screenshots/chooseRaceTest2.png)
+
+(its valid because getChar only looks for the first character in a string)
+
+finally, I tested if H for Human would work and it did
+
+![chooseRaceTest3.png](screenshots/chooseRaceTest3.png)
+
+---
+
+## getChar Function
+
+This function gets a character from a string of user input
+
+### test data used
+
+I added a block of code where it used the getChar function and printed out the return value
+
+### test result
+
+works as intended
+
+![getCharTest.png](screenshots/getCharTest.png)
+
+---
+
+## turn system and end loop works
+
+This ensures the game is actually a game and not one player wailing on the other
+
+### test data used
+
+I played a match with myself 
+
+### test result
+
+the gif below shows me play a short match with myself. TestA was a Dwarf with a Woodstaff. TestB was a Human with a Quickbow. Everything works as intended
+
+![playTest.gif](screenshots/playTest.gif)

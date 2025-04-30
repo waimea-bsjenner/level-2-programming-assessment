@@ -1,4 +1,4 @@
-# BRILLIANT OMEGA OUTSTANDING BATTLE SIMULATOR (B.O.O.B.S)
+# BRILLIANT OMEGA OUTSTANDING BATTLE SIMULATOR
 
 By Benjamin Jenner
 
@@ -25,7 +25,7 @@ The project is written in the [Kotlin](https://kotlinlang.org) programming langu
 
 ## Project Description
 
-**B.O.O.B.S is a simple battle simulator which involves you and a friend being placed in a turn based battle, with different classes, races of character, and various weapons to take each other out!**
+**Brilliant Omega Outstanding Battle Simulator is a simple battle simulator which involves you and a friend being placed in a turn based battle, with different races of character and various weapons to take each other out!**
 
 
 

@@ -91,3 +91,34 @@ I'll play a test match
 ### expected result
 
 It shouldn't break and use appropriate values
+
+---
+
+## movement system
+
+theres a distance the players can either increase or decrease to move in or out of range of the opponents attacks
+
+### test data to use
+
+I'll move in a test match
+
+### expected result
+
+It should increase or decrease the distance variable by the player's race's move speed value, and it shouldn't let the players move past each other (distance would be < 0).
+
+---
+
+## attacking
+
+lets the players decrease the opponents health
+
+### test data to use
+
+I'll attack the opponent in a test match
+
+### expected result
+
+it should take the player's weapon's damage value multiplied by the number of the weapons attacks away from the opponents health
+
+---
+

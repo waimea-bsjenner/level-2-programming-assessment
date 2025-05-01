@@ -81,7 +81,7 @@ The program code is well-commented:
 ### Program Testing
 
 The program has been tested using:
-- [ ] A test plan **prepared in advance** of the coding
+- [x] A test plan **prepared in advance** of the coding
 - [x] A test plan that **defines test data values** to be used
 - [x] Test values that cover **boundary** (limit / edge) cases
 
@@ -111,7 +111,7 @@ The program code:
 ### Program Testing
 
 The program has been tested to be **robust**:
-- [ ] With a **comprehensive and thorough** test plan
+- [x] With a **comprehensive and thorough** test plan
 - [x] Testing **regularly** throughout development, allowing **time for debugging**
 - [x] Using test values that cover **invalid** (unexpected) cases
 - [x] Resulting in a program that **copes appropriately** with invalid inputs
